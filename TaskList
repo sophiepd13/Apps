@@ -1,0 +1,88 @@
+//Note this is in windows forms.
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace TaskList
+{
+    public partial class Form1 : Form
+    {
+        public Form1()
+        {
+            InitializeComponent();
+            // set this.FormBorderStyle to None here if needed
+            // if set to none, make sure you have a way to close the form!
+        }
+        protected override void WndProc(ref Message m)
+        {
+            base.WndProc(ref m);
+            if (m.Msg == WM_NCHITTEST)
+                m.Result = (IntPtr)(HT_CAPTION);
+        }
+
+        private const int WM_NCHITTEST = 0x84;
+        private const int HT_CLIENT = 0x1;
+        private const int HT_CAPTION = 0x2;
+    
+        
+       
+        private void CloseButton_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            TextBox textBox = new TextBox();
+            textBox.Name = "txtDynamic";
+            textBox.Size = new System.Drawing.Size(230, 35);
+            textBox.BackColor = Color.Black;
+            textBox.ForeColor = Color.MediumSlateBlue;
+            textBox.Margin = new Padding(3);
+
+            CheckBox checkBox = new CheckBox();
+            checkBox.Name = "Check";
+            checkBox.Size = new System.Drawing.Size(35, 26);
+            checkBox.BackColor = Color.Black;
+            checkBox.ForeColor = Color.MediumSlateBlue;
+            checkBox.Margin = new Padding(0);
+
+            this.flowLayoutPanel1.Controls.Add(textBox);
+            this.flowLayoutPanel2.Controls.Add(checkBox);
+        }
+
+
+        private void flowLayoutPanel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void removeButton_Click(object sender, EventArgs e)
+        {
+            int count = this.flowLayoutPanel1.Controls.Count;
+            if (count > 0)
+            {
+                this.flowLayoutPanel1.Controls[count - 1].Dispose();
+                this.flowLayoutPanel2.Controls[count - 1].Dispose();
+            }
+
+            
+        }
+
+        private void flowLayoutPanel2_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+    }
+}
